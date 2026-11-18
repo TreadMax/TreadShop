@@ -27,7 +27,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 32px;
+    padding: 14px 24px;
     background-color: #1f2937;
     color: white;
 }
@@ -39,6 +39,7 @@ header{
 nav ul{
     display: flex;
     gap: 16px;
+    list-style: none;
 }
 nav a:hover{
     color: #fbbf24;
@@ -66,7 +67,7 @@ nav a:hover{
     background-color: #fbbf24;
     color: #1f2937;
     font-size: 18px;
-    border-radius: 4px;
+    border-radius: 6px;
     transition: background-color 0.3s ease;
 }
 .button:hover{
@@ -87,7 +88,7 @@ section h2{
     gap: 32px;
 }
 .product-card{
-    background-color: white;
+    background-color: rgba(190, 190, 190, 0.616);
     border-radius: 10px;
     padding: 16px;
     overflow: hidden;
