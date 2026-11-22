@@ -1,24 +1,45 @@
 
 const card = [];
+let products = [];
+
+const productGrid = document.querySelector("#product-grid");
 const cartCountElement = document.querySelector("#cart-count");
-const addButtons = document.querySelectorAll(".product-card button");
 
 function updateCartCount() {
   cartCountElement.textContent = card.length;
 }
+function renderProducts() {
+  productGrid.innerHTML = products
+    .map(function (product) {
+      return `
+      <article class="product-card">
+        <img src="${product.image}" alt="${product.name}" />
+        <h3>${product.name}</h3>
+        <p class="price">$${product.price.toFixed(2)}</p>
+        <button data-id="${product.id}">Add to Cart"</button>
+      </article>
+    `;
+    })
+    .join("");
 
-function addToCart(name, price) {
-  card.push({ name: name, price: price });
-  updateCartCount();
-  console.log("Card:", card);
-}
-
-addButtons.forEach(function(button) {
-  button.addEventListener("click", function() {
-    const card = button.closest(".product-card");
-    const name = card.querySelector("h3").textContent;
-    const priceText = card.querySelector(".price").textContent;
-    const price = parseFloat(priceText.replace("$", ""));
-    addToCart(name, price);
-  });
+} 
+productGrid.addEventListener("click", function (event) {
+  const button = event.target.closest("button[data-id]");
+  if (!button) return;
+  addToCart(Number(button.dataset.id));
 });
+
+async function loadProducts() {
+  try {
+    const response = await fetch("/api/products");
+    if (!response.ok) {
+      throw new Error('Failed to fetch products: ${response.status} ${response.statusText}');
+    }
+    products = await response.json();
+    renderProducts();
+  } catch (error) {
+    console.error("could not fetch products:", error);
+    productGrid.innerHTML = "<p>Failed to load products. Please try again later.</p>";
+  }
+}
+loadProducts();
