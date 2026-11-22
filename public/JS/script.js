@@ -16,7 +16,7 @@ function renderProducts() {
         <img src="${product.image}" alt="${product.name}" />
         <h3>${product.name}</h3>
         <p class="price">$${product.price.toFixed(2)}</p>
-        <button data-id="${product.id}">Add to Cart"</button>
+        <button data-id="${product.id}">Add to Cart</button>
       </article>
     `;
     })
@@ -26,7 +26,7 @@ function renderProducts() {
 productGrid.addEventListener("click", function (event) {
   const button = event.target.closest("button[data-id]");
   if (!button) return;
-  addToCart(Number(button.dataset.id));
+  
 });
 
 async function loadProducts() {
